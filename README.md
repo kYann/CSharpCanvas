@@ -8,3 +8,9 @@ This is mostly a conversion of node-canvas from c++ to c#. It does not implement
 If the function you need is not implemented, just look at node-canvas code for inspiration and contribute !
 
 As this is mostly a hack made in one hour, this as not been heavily tested.
+
+Dependencies :
+ - Cairo
+ 
+To install cairo on windows, I suggest that you use chocolatey : http://chocolatey.org/
+cinst gtksharp
