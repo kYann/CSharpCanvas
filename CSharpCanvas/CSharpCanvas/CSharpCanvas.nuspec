@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>$id$</id>
+        <version>0.1</version>
+        <authors>Yann ROBIN</authors>
+        <owners>Yann ROBIN</owners>
+        <description>csharp canvas is an html5 canvas API implementation that works on .Net and Mono (it uses Cairo)</description>
+        <copyright>Copyright 2013</copyright>       
+    </metadata>
+</package>
