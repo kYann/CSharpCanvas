@@ -71,7 +71,8 @@ namespace CSharpCanvas
             property.SetValue(context, propValue);
         }
 
-        public static void RenderScriptWith2dContextToPng(string pngPath, string contextVariableName, string script, int width, int height)
+        public static void RenderScriptWith2dContextToPng(string pngPath, string contextVariableName, string script,
+            int width, int height, List<string> notProcessInstuction = null)
         {
             using (var canvas = new Canvas(width, height))
             {
@@ -82,7 +83,10 @@ namespace CSharpCanvas
                 foreach (var inst in instructions)
                 {
                     if (!inst.Contains(contextVariableName))
+                    {
+                        if (notProcessInstuction != null) notProcessInstuction.Add(inst);
                         continue;
+                    }
                     var idxAssign = inst.IndexOf('=');
 
                     if (idxAssign < 0)

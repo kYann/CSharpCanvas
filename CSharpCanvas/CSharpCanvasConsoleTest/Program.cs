@@ -24,7 +24,6 @@ namespace CSharpCanvasConsoleTest
             CanvasScriptEngine.RenderScriptWith2dContextToPng("test2.png", "pdf", test1Js, 904, 1279);
 
             Process.Start("test2.png");
-            Console.ReadLine();
         }
     }
 }
