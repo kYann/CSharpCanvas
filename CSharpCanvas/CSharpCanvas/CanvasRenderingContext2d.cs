@@ -111,17 +111,15 @@ namespace CSharpCanvas
                     double fx = (double)dw / sw;
                     double fy = (double)dh / sh;
                     //scale 
-                    using (var imgContext = new Context(imgSurface))
-                    {
-                        imgContext.Scale(fx, fy);
-                        dx /= fx;
-                        dy /= fy;
-                    }
+                    canvas.Context.Scale(fx, fy);
+                    dx = dx / fx;
+                    dy = dy / fy;
                 }
 
-                using (var pattern = new SurfacePattern(imgSurface))
+                using (var pattern = new SurfacePattern(canvas.Surface))
                 {
                     pattern.Filter = state.patternQuality;
+                    canvas.Context.Pattern = pattern;
                     canvas.Context.SetSource(imgSurface, dx - sx, dy - sy);
                     canvas.Context.PaintWithAlpha(state.globalAlpha);
                 }
