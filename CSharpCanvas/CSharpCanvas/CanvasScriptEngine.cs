@@ -68,7 +68,7 @@ namespace CSharpCanvas
             var propRawValue = parts[1].Trim('"', '\'');
             var propValue = Convert.ChangeType(propRawValue, property.PropertyType, CultureInfo.InvariantCulture);
 
-            property.SetValue(context, propValue);
+            property.SetValue(context, propValue, null);
         }
 
         /// <summary>
@@ -95,7 +95,8 @@ namespace CSharpCanvas
                 {
                     if (!inst.Contains(contextVariableName))
                     {
-                        if (notProcessInstuction != null) notProcessInstuction.Add(inst);
+                        if (notProcessInstuction != null && !string.IsNullOrWhiteSpace(inst)) 
+                            notProcessInstuction.Add(inst);
                         continue;
                     }
                     var idxAssign = inst.IndexOf('=');
