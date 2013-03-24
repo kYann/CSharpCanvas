@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <package >
-    <metadata>
-        <id>$id$</id>
-        <version>0.1</version>
-        <authors>Yann ROBIN</authors>
-        <owners>Yann ROBIN</owners>
-        <description>csharp canvas is an html5 canvas API implementation that works on .Net and Mono (it uses Cairo)</description>
-        <copyright>Copyright 2013</copyright>       
-    </metadata>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/kYann/CSharpCanvas</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>First version of csharp-canvas. A csharp implementation of html5 canvas API. Works on .Net and Mono using Cairo.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>canvas</tags>
+  </metadata>
 </package>

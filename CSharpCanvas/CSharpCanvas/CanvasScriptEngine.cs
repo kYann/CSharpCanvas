@@ -12,13 +12,13 @@ namespace CSharpCanvas
         private static void CallFunctionFromScriptInstruction(string scriptLine, CanvasRenderingContext2d context)
         {
             var idxArgs = scriptLine.IndexOf('(');
-            if (idxArgs < 0) throw new NotSupportedException("Oupps, we don't support fancy js");
+            if (idxArgs < 0) throw new NotSupportedException("Oupps, we don't support fancy js : " + scriptLine);
             idxArgs++;
             var rawArgs = scriptLine.Substring(idxArgs, scriptLine.IndexOf(')') - idxArgs);
             var args = rawArgs.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(c => c.Trim()).ToList();
             var idxFct = scriptLine.IndexOf('.');
-            if (idxFct < 0 || idxFct >= idxArgs) throw new NotSupportedException("Oupps, we don't support fancy js");
+            if (idxFct < 0 || idxFct >= idxArgs) throw new NotSupportedException("Oupps, we don't support fancy js : " + scriptLine);
 
             idxFct++;
             var fctName = scriptLine.Substring(idxFct, idxArgs - idxFct - 1);
@@ -59,9 +59,9 @@ namespace CSharpCanvas
         {
             var parts = scriptLine.Split('=').Select(c => c.Trim()).ToList();
 
-            if (parts.Count != 2) throw new NotSupportedException("Oupps, we don't support fancy js");
+            if (parts.Count != 2) throw new NotSupportedException("Oupps, we don't support fancy js : " + scriptLine);
             var idxProp = parts[0].IndexOf('.');
-            if (idxProp < 0) throw new NotSupportedException("Oupps, we don't support fancy js");
+            if (idxProp < 0) throw new NotSupportedException("Oupps, we don't support fancy js : " + scriptLine);
 
             var propName = parts[0].Substring(idxProp + 1);
             var property = context.GetType().GetProperty(propName);
@@ -71,9 +71,20 @@ namespace CSharpCanvas
             property.SetValue(context, propValue);
         }
 
-        public static void RenderScriptWith2dContextToPng(string pngPath, string contextVariableName, string script,
+        /// <summary>
+        /// Render an image from a list of instructions that manipulate a 2d context of a canvas
+        /// </summary>
+        /// <param name="pngPath">Canvas output png path</param>
+        /// <param name="contextVariableName">Name of the 2d context variable</param>
+        /// <param name="script">Script to parse</param>
+        /// <param name="width">Canvas width</param>
+        /// <param name="height">Canvas height</param>
+        /// <param name="notProcessInstuction">List of not processed instructions</param>
+        /// <returns>Number of processed instructions</returns>
+        public static int RenderScriptWith2dContextToPng(string pngPath, string contextVariableName, string script,
             int width, int height, List<string> notProcessInstuction = null)
         {
+            int nbProcessed = 0;
             using (var canvas = new Canvas(width, height))
             {
                 var context = canvas.getContext("2d");
@@ -97,10 +108,11 @@ namespace CSharpCanvas
                     {
                         CallAssignFromScriptInstruction(inst, context);
                     }
+                    nbProcessed++;
                 }
-
                 canvas.SaveToPng(pngPath);
             }
+            return nbProcessed;
         }
     }
 }
